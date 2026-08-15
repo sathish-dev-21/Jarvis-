@@ -56,36 +56,34 @@ const chat = document.getElementById('chat');
     return "I don't have an AI key connected yet, so my replies are limited. Add your Gemini API key in Settings ⚙️ to unlock full intelligence.";
   }
 
-  // ---------- Persistent API key storage ----------
+  // ---------- Persistent API key storage (localStorage — works on real deployed sites) ----------
   let geminiKey = '';
+  const STORAGE_KEY = 'jarvis-gemini-api-key';
 
-  async function loadKey(){
+  function loadKey(){
     try{
-      const res = await window.storage.get('gemini-api-key');
-      if(res && res.value){
-        geminiKey = res.value;
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if(saved){
+        geminiKey = saved;
         document.getElementById('apiKeyInput').value = geminiKey;
         document.getElementById('keyStatus').textContent = 'Key loaded ✓';
       }
     }catch(e){
-      // no key saved yet
+      // localStorage blocked (private browsing etc.) — key just won't persist
     }
   }
 
-  async function saveKey(){
+  function saveKey(){
     const val = document.getElementById('apiKeyInput').value.trim();
     const statusEl = document.getElementById('keyStatus');
     if(!val){ statusEl.textContent = 'Enter a key first'; return; }
     try{
-      const result = await window.storage.set('gemini-api-key', val);
-      if(result){
-        geminiKey = val;
-        statusEl.textContent = 'Saved ✓';
-      } else {
-        statusEl.textContent = 'Save failed, try again';
-      }
+      localStorage.setItem(STORAGE_KEY, val);
+      geminiKey = val;
+      statusEl.textContent = 'Saved ✓';
     }catch(e){
-      statusEl.textContent = 'Save failed: ' + e.message;
+      geminiKey = val; // still usable for this session even if it can't persist
+      statusEl.textContent = 'Saved for this session only (' + e.message + ')';
     }
   }
 
