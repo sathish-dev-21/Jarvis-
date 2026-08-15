@@ -447,3 +447,25 @@
     padding:4px 0 0;
   }
   .wake-indicator.active{display:block;}
+  .lang-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .lang-btn{
+    flex:1;
+    padding:9px 0;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:rgba(0,229,255,0.04);
+    color:var(--text-dim);
+    font-family:'Rajdhani',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+  }
+  .lang-btn.active{
+    border-color:var(--core-cyan);
+    background:rgba(0,229,255,0.14);
+    color:var(--core-cyan);
+      }
