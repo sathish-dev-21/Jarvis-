@@ -144,6 +144,35 @@ const chat = document.getElementById('chat');
     if(e.key === 'Enter') handleUserInput(textInput.value);
   });
 
+  // ---------- Voice language selection ----------
+  let voiceLang = 'en-IN';
+  const LANG_STORAGE_KEY = 'jarvis-voice-lang';
+
+  function loadLang(){
+    try{
+      const saved = localStorage.getItem(LANG_STORAGE_KEY);
+      if(saved) voiceLang = saved;
+    }catch(e){}
+    updateLangButtons();
+  }
+
+  function updateLangButtons(){
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === voiceLang);
+    });
+  }
+
+  function setLang(lang){
+    voiceLang = lang;
+    try{ localStorage.setItem(LANG_STORAGE_KEY, lang); }catch(e){}
+    updateLangButtons();
+    if(recognition) recognition.lang = voiceLang;
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
   // ---------- Settings panel ----------
   const gearBtn = document.getElementById('gearBtn');
   const settingsPanel = document.getElementById('settingsPanel');
@@ -156,6 +185,7 @@ const chat = document.getElementById('chat');
   closeSettings.addEventListener('click', () => settingsPanel.classList.remove('open'));
   saveKeyBtn.addEventListener('click', saveKey);
   loadKey();
+  loadLang();
 
   // ---------- Speech Recognition ----------
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -164,7 +194,7 @@ const chat = document.getElementById('chat');
 
   if(SpeechRecognition){
     recognition = new SpeechRecognition();
-    recognition.lang = 'en-IN';
+    recognition.lang = voiceLang;
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
@@ -234,7 +264,7 @@ const chat = document.getElementById('chat');
   function startWakeListening(){
     if(!SpeechRecognition || listening) return;
     wakeRecognition = new SpeechRecognition();
-    wakeRecognition.lang = 'en-IN';
+    wakeRecognition.lang = 'en-IN'; // wake phrase "Hey Jarvis" stays English regardless of voice language
     wakeRecognition.interimResults = true;
     wakeRecognition.continuous = true;
 
@@ -295,4 +325,4 @@ const chat = document.getElementById('chat');
     };
   } else {
     wakeToggle.disabled = true;
-       }
+          }
