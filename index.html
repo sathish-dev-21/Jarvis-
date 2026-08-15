@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>J.A.R.V.I.S.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="frame">
+  <div class="header">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <button class="gear-btn" id="gearBtn" aria-label="Settings">⚙️</button>
+    <div class="brand">J.A.R.V.I.S.</div>
+    <div class="subtag">Personal Assistant Interface</div>
+    <div class="status-row"><span class="status-dot"></span><span id="statusText">System Online</span></div>
+  </div>
+
+  <div class="settings-panel" id="settingsPanel">
+    <div class="settings-inner">
+      <div class="settings-title">SETTINGS</div>
+
+      <label class="settings-label">Gemini API Key</label>
+      <input type="password" id="apiKeyInput" placeholder="Paste your Gemini API key" autocomplete="off">
+      <div class="settings-note">Saved on this device only. Don't share this file publicly with your key inside it.</div>
+      <button class="settings-save" id="saveKeyBtn">Save Key</button>
+      <div class="key-status" id="keyStatus"></div>
+
+      <div class="settings-divider"></div>
+
+      <div class="wake-row">
+        <div>
+          <div class="settings-label" style="margin-bottom:2px;">Wake Word</div>
+          <div class="settings-note" style="margin:0;">Say "Hey Jarvis" to activate hands-free</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="wakeToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <button class="settings-close" id="closeSettings">Close</button>
+    </div>
+  </div>
+
+  <div class="chat" id="chat">
+    <div class="msg jarvis">Hello! I'm JARVIS, your personal assistant. How can I help you today? 👋</div>
+  </div>
+
+  <div class="console">
+    <div class="mic-wrap" id="micWrap">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <button class="mic-btn" id="micBtn" aria-label="Talk to Jarvis">🎙️</button>
+    </div>
+    <div class="mic-hint" id="micHint">TAP TO SPEAK</div>
+    <div class="wake-indicator" id="wakeIndicator">● BACKGROUND LISTENING FOR "HEY JARVIS"</div>
+    <div class="no-speech-note" id="noSpeechNote">Voice not supported on this browser — use text below.</div>
+
+    <div class="input-row">
+      <input type="text" id="textInput" placeholder="Type a command..." autocomplete="off">
+      <button class="send-btn" id="sendBtn">➤</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
