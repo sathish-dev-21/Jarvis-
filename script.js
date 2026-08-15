@@ -89,7 +89,7 @@ const chat = document.getElementById('chat');
 
   // ---------- Gemini call ----------
   async function askGemini(userText){
-    const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + encodeURIComponent(geminiKey);
+    const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=' + encodeURIComponent(geminiKey);
     const body = {
       contents: [{
         parts: [{ text: userText }]
@@ -295,4 +295,4 @@ const chat = document.getElementById('chat');
     };
   } else {
     wakeToggle.disabled = true;
-  }
+       }
